@@ -5,13 +5,19 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": "concurrently \"nodemon src/index.js\" \"nodemon src/grpcServer.js\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@grpc/grpc-js": "^1.6.7",
+    "@grpc/proto-loader": "^0.6.13",
+    "async": "^3.2.4",
+    "concurrently": "^7.2.1",
     "express": "^4.18.1",
+    "lodash": "^4.17.21",
+    "minimist": "^1.2.6",
     "node": "^17.7.2"
   },
   "devDependencies": {

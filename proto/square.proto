@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package square;
+
+
+service Square{
+    rpc getSquare(SquareRequest) returns(SquareResponse){}
+}
+
+
+message SquareRequest{
+    int32 id = 1;
+}
+
+
+message SquareResponse{
+    int64 square = 1;
+}
