@@ -3,11 +3,15 @@ import express from 'express'
 
 import * as grpc from '@grpc/grpc-js'
 import * as protoLoader from '@grpc/proto-loader'
-const PROTO_PATH = '../proto/square.proto'
-console.log('protopath', PROTO_PATH)
-const PORT = 4500
+const SQUAREPROTO_PATH = '../proto/square.proto'
+const SQUAREROOTPROTO_PATH = '../proto/squareroot.proto'
 
-let packageDefinition = protoLoader.loadSync(PROTO_PATH, {
+const SQUAREPORT = 4500
+const SQUAREROOTPORT = 5500
+
+const router = express.Router()
+
+let packageDefinition = protoLoader.loadSync(SQUAREPROTO_PATH, {
   keepCase: true,
   longs: String,
   enums: String,
@@ -16,10 +20,25 @@ let packageDefinition = protoLoader.loadSync(PROTO_PATH, {
 })
 let square_proto = grpc.loadPackageDefinition(packageDefinition).square
 
-const router = express.Router()
-
 let client = new square_proto.Square(
-  'localhost:4500',
+  `localhost:${SQUAREPORT}`,
+  grpc.credentials.createInsecure()
+)
+
+let squareRootPackageDefinition = protoLoader.loadSync(SQUAREROOTPROTO_PATH, {
+  keepCase: true,
+  longs: String,
+  enums: String,
+  defaults: true,
+  oneofs: true,
+})
+
+let squareroot_proto = grpc.loadPackageDefinition(
+  squareRootPackageDefinition
+).squareroot
+
+let squareRootClient = new squareroot_proto.SquareRoot(
+  `localhost:${SQUAREROOTPORT}`,
   grpc.credentials.createInsecure()
 )
 
@@ -29,7 +48,10 @@ router.get('/api/grpc/:limit', async (req, res) => {
   for (let i = 1; i <= limit; i++) {
     try {
       let responseData = { square: null, squareRoot: null }
-      responseData.square = await getSquare(i)
+      await Promise.all([
+        getSquare(i, responseData),
+        getSquareRoot(i, responseData),
+      ])
       resp[i] = responseData
     } catch (er) {
       console.log('error = ', er)
@@ -38,15 +60,27 @@ router.get('/api/grpc/:limit', async (req, res) => {
   res.send(resp)
 })
 
-async function getSquare(i) {
+async function getSquare(i, responseData) {
   return new Promise((resolve, reject) =>
     client.getSquare({ id: i }, function (err, response) {
       if (err) {
         return reject(err)
       }
-      resolve(response.square)
+      responseData.square = response.square
+      resolve()
     })
   )
 }
 
+async function getSquareRoot(i, responseData) {
+  return new Promise((resolve, reject) =>
+    squareRootClient.getSquareRoot({ id: i }, function (err, response) {
+      if (err) {
+        return reject(err)
+      }
+      responseData.squareRoot = response.SquareRoot
+      resolve()
+    })
+  )
+}
 export { router as grpcRouter }

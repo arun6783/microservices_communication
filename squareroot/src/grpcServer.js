@@ -1,7 +1,7 @@
 import * as grpc from '@grpc/grpc-js'
 import * as protoLoader from '@grpc/proto-loader'
-const PROTO_PATH = '../proto/square.proto'
-const PORT = 4500
+const PROTO_PATH = '../proto/squareroot.proto'
+const PORT = 5500
 
 let packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   keepCase: true,
@@ -11,24 +11,26 @@ let packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   oneofs: true,
 })
 
-let square_proto = grpc.loadPackageDefinition(packageDefinition).square
+let squareroot_proto = grpc.loadPackageDefinition(packageDefinition).squareroot
 
-function getSquareResp(req, res) {
+function getSquareRootResp(req, res) {
   res(null, {
-    square: Math.pow(req.request.id, 2),
+    SquareRoot: Math.sqrt(req.request.id),
   })
 }
 
 function start() {
   let server = new grpc.Server()
-  server.addService(square_proto.Square.service, { getSquare: getSquareResp })
+  server.addService(squareroot_proto.SquareRoot.service, {
+    getSquareRoot: getSquareRootResp,
+  })
 
   server.bindAsync(
     `0.0.0.0:${PORT}`,
     grpc.ServerCredentials.createInsecure(),
     () => {
       server.start()
-      console.log('grpc server started at port', PORT)
+      console.log('square root grpc server started at port', PORT)
     }
   )
 }
