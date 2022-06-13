@@ -1,17 +1,11 @@
 import * as grpc from '@grpc/grpc-js'
-import * as protoLoader from '@grpc/proto-loader'
-const PROTO_PATH = '../proto/squareroot.proto'
-const PORT = 5500
+import { squareRootPackageDefinition } from '@aarchar/proto'
 
-let packageDefinition = protoLoader.loadSync(PROTO_PATH, {
-  keepCase: true,
-  longs: String,
-  enums: String,
-  defaults: true,
-  oneofs: true,
-})
+const port = process.env.GRPC_PORT || 5500
 
-let squareroot_proto = grpc.loadPackageDefinition(packageDefinition).squareroot
+let squareroot_proto = grpc.loadPackageDefinition(
+  squareRootPackageDefinition
+).squareroot
 
 function getSquareRootResp(req, res) {
   res(null, {
@@ -26,11 +20,11 @@ function start() {
   })
 
   server.bindAsync(
-    `0.0.0.0:${PORT}`,
+    `0.0.0.0:${port}`,
     grpc.ServerCredentials.createInsecure(),
     () => {
       server.start()
-      console.log('square root grpc server started at port', PORT)
+      console.log('square root grpc server started at port', port)
     }
   )
 }

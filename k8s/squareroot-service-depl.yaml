@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: squareroot-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: squareroot
+  template:
+    metadata:
+      labels:
+        app: squareroot
+    spec:
+      containers:
+        - name: squareroot
+          image: arun6783/squareroot
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: squareroot-srv
+spec:
+  selector:
+    app: squareroot
+  ports:
+    - name: squareroot-tcp
+      protocol: TCP
+      port: 5000
+      targetPort: 5000
+    - name: squareroot-grpc
+      protocol: TCP
+      port: 5500
+      targetPort: 5500

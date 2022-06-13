@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: square-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: square
+  template:
+    metadata:
+      labels:
+        app: square
+    spec:
+      containers:
+        - name: square
+          image: arun6783/square
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: square-srv
+spec:
+  selector:
+    app: square
+  ports:
+    - name: square-tcp
+      protocol: TCP
+      port: 4000
+      targetPort: 4000
+    - name: square-grpc
+      protocol: TCP
+      port: 4500
+      targetPort: 4500

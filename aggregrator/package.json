@@ -1,25 +1,26 @@
 {
-  "name": "aggregrator",
+  "name": "aggregator",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "start": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aarchar/proto": "^1.0.3",
     "@grpc/grpc-js": "^1.6.7",
     "@grpc/proto-loader": "^0.6.13",
+    "async": "^3.2.4",
     "axios": "^0.27.2",
     "body-parser": "^1.20.0",
     "dotenv": "^16.0.1",
-    "express": "^4.18.1",
-    "node": "^17.7.2"
+    "express": "^4.18.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
-  },
-  "type": "module"
+  }
 }

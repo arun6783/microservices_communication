@@ -1,17 +1,9 @@
 import * as grpc from '@grpc/grpc-js'
-import * as protoLoader from '@grpc/proto-loader'
-const PROTO_PATH = '../proto/square.proto'
+import { squarePackageDefinition } from '@aarchar/proto'
+
 const PORT = 4500
 
-let packageDefinition = protoLoader.loadSync(PROTO_PATH, {
-  keepCase: true,
-  longs: String,
-  enums: String,
-  defaults: true,
-  oneofs: true,
-})
-
-let square_proto = grpc.loadPackageDefinition(packageDefinition).square
+let square_proto = grpc.loadPackageDefinition(squarePackageDefinition).square
 
 function getSquareResp(req, res) {
   res(null, {

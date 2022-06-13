@@ -8,7 +8,7 @@ app.get('/api/squareroot/:id', async (req, res) => {
 
   res.status(200).json(squareRoot)
 })
-const port = 5000
+const port = process.env.NODE_PORT || 5000
 app.listen(port, () => {
   console.log(`Squareroot server is Running at port ${port}`)
 })

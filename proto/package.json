@@ -1,0 +1,16 @@
+{
+  "name": "@aarchar/proto",
+  "version": "1.0.3",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "pub": "npm version patch && npm publish --acccess publish"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@grpc/proto-loader": "^0.6.13"
+  }
+}

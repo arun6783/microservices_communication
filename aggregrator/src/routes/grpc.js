@@ -1,46 +1,39 @@
 //implement grpc aggregator route  and call square service using grpc
 import express from 'express'
-
 import * as grpc from '@grpc/grpc-js'
-import * as protoLoader from '@grpc/proto-loader'
-const SQUAREPROTO_PATH = '../proto/square.proto'
-const SQUAREROOTPROTO_PATH = '../proto/squareroot.proto'
+import {
+  squarePackageDefinition,
+  squareRootPackageDefinition,
+} from '@aarchar/proto'
 
-const SQUAREPORT = 4500
-const SQUAREROOTPORT = 5500
+const SQUAREHOST = process.env.SQUARE_HOST || 'localhost'
+const SQUAREROOTHOST = process.env.SQUARE_ROOT_HOST || 'localhost'
+
+const SQUAREPORT = process.env.SQUARE_GRPC_PORT || 4500
+const SQUAREROOTPORT = process.env.SQUARE_ROOT_GRPC_PORT || 5500
 
 const router = express.Router()
 
-let packageDefinition = protoLoader.loadSync(SQUAREPROTO_PATH, {
-  keepCase: true,
-  longs: String,
-  enums: String,
-  defaults: true,
-  oneofs: true,
-})
-let square_proto = grpc.loadPackageDefinition(packageDefinition).square
+let square_proto = grpc.loadPackageDefinition(squarePackageDefinition).square
 
 let client = new square_proto.Square(
-  `localhost:${SQUAREPORT}`,
+  `${SQUAREHOST}:${SQUAREPORT}`,
   grpc.credentials.createInsecure()
 )
-
-let squareRootPackageDefinition = protoLoader.loadSync(SQUAREROOTPROTO_PATH, {
-  keepCase: true,
-  longs: String,
-  enums: String,
-  defaults: true,
-  oneofs: true,
-})
 
 let squareroot_proto = grpc.loadPackageDefinition(
   squareRootPackageDefinition
 ).squareroot
 
 let squareRootClient = new squareroot_proto.SquareRoot(
-  `localhost:${SQUAREROOTPORT}`,
+  `${SQUAREROOTHOST}:${SQUAREROOTPORT}`,
   grpc.credentials.createInsecure()
 )
+
+console.log('first', `${SQUAREHOST}:${SQUAREPORT}`)
+console.log('client', client)
+
+console.log('squareRootClient', squareRootClient)
 
 router.get('/api/grpc/:limit', async (req, res) => {
   const { limit } = req.params

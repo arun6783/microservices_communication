@@ -1,14 +1,43 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: Enter deployment name
+  name: aggregator-depl
 spec:
-  replicas: Enter the number of replicas
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aggregator
   template:
     metadata:
       labels:
-        editor: vscode
+        app: aggregator
     spec:
       containers:
-        - name: name
-          image: Enter containers image
+        - name: aggregator
+          image: arun6783/aggregator
+          env:
+            - name: SQUARE_HOST
+              value: 'square-srv'
+            - name: SQUARE_ROOT_HOST
+              value: 'squareroot-srv'
+            - name: SQUARE_PORT
+              value: '4000'
+            - name: SQUARE_GRPC_PORT
+              value: '4500'
+            - name: SQUARE_ROOT_PORT
+              value: '5000'
+            - name: SQUARE_ROOT_GRPC_PORT
+              value: '5500'
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: aggregator-srv
+spec:
+  selector:
+    app: aggregator
+  ports:
+    - name: aggregator-tcp
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
