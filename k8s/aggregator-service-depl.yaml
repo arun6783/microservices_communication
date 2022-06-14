@@ -38,6 +38,5 @@ spec:
     app: aggregator
   ports:
     - name: aggregator-tcp
-      protocol: TCP
       port: 3000
       targetPort: 3000

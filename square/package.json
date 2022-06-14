@@ -13,8 +13,6 @@
   "dependencies": {
     "@aarchar/proto": "^1.0.3",
     "@grpc/grpc-js": "^1.6.7",
-    "@grpc/proto-loader": "^0.6.13",
-    "async": "^3.2.4",
     "concurrently": "^7.2.1",
     "express": "^4.18.1"
   },

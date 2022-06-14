@@ -25,10 +25,8 @@ spec:
     app: squareroot
   ports:
     - name: squareroot-tcp
-      protocol: TCP
       port: 5000
       targetPort: 5000
     - name: squareroot-grpc
-      protocol: TCP
       port: 5500
       targetPort: 5500

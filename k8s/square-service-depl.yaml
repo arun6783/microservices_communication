@@ -25,10 +25,8 @@ spec:
     app: square
   ports:
     - name: square-tcp
-      protocol: TCP
       port: 4000
       targetPort: 4000
     - name: square-grpc
-      protocol: TCP
       port: 4500
       targetPort: 4500
