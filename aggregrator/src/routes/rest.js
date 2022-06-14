@@ -1,5 +1,8 @@
 import express from 'express'
-import { buildSquareClient, buildSquareRootClient } from '../build-client.js'
+import {
+  buildSquareClient,
+  buildSquareRootClient,
+} from '../utils/build-client.js'
 
 const router = express.Router()
 const client = buildSquareClient()
