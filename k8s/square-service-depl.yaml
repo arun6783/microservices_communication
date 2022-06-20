@@ -15,6 +15,9 @@ spec:
       containers:
         - name: square
           image: arun6783/square
+          env:
+            - name: USE_SSL
+              value: 'true'
 ---
 kind: Service
 apiVersion: v1
@@ -27,6 +30,9 @@ spec:
     - name: square-tcp
       port: 4000
       targetPort: 4000
+    - name: square-https
+      port: 4443
+      targetPort: 4443
     - name: square-grpc
       port: 4500
       targetPort: 4500

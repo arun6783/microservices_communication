@@ -26,6 +26,12 @@ spec:
               value: '4500'
             - name: SQUARE_ROOT_PORT
               value: '5000'
+            - name: USE_SSL
+              value: 'true'
+            - name: SQUARE_SSL_PORT
+              value: '4443'
+            - name: SQUARE_ROOT_SSL_PORT
+              value: '5443'
             - name: SQUARE_ROOT_GRPC_PORT
               value: '5500'
 ---

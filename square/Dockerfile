@@ -9,3 +9,4 @@ CMD ["npm", "start"]
 
 EXPOSE 4000
 EXPOSE 4500
+EXPOSE 4443
