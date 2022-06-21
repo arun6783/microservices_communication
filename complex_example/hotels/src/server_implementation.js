@@ -13,8 +13,9 @@ const getHotelsData = async (city) => {
     hotels: hotels,
     cache: false,
   }
-
-  await RedisClient.set(city, datatoStore)
+  if (hotels) {
+    await RedisClient.set(city, datatoStore)
+  }
 
   return datatoStore
 }

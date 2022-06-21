@@ -16,8 +16,9 @@ const getWeatherData = async (city) => {
     weather: weather,
     cache: false,
   }
-
-  await RedisClient.set(city, datatoStore)
+  if (weather) {
+    await RedisClient.set(city, datatoStore)
+  }
   //now store this in mongo
   return datatoStore
 }

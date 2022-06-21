@@ -6,8 +6,8 @@ dotenv.config()
 const getToken = async () => {
   const queryData = qs.stringify({
     grant_type: 'client_credentials',
-    client_id: 'Gcdnd6FxkbF1wJFgXySGlul0Hsb3yd9k',
-    client_secret: 'qAZOUdQn5xJ1RTY6',
+    client_id: process.env.CLIENT_ID,
+    client_secret: process.env.CLIENT_SECRET,
   })
   const config = {
     method: 'post',
