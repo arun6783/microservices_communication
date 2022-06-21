@@ -17,7 +17,7 @@ spec:
           image: arun6783/squareroot
           env:
             - name: USE_SSL
-              value: 'true'
+              value: 'false'
 ---
 kind: Service
 apiVersion: v1

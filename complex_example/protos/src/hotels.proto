@@ -1,0 +1,15 @@
+syntax = "proto3";
+package Hotels;
+
+
+service Hotels{
+    rpc getHotels(HotelRequest) returns(HotelResponse);
+}
+
+message HotelRequest{
+    string  name  =1;
+}
+
+message HotelResponse{
+    string abc =1;
+}

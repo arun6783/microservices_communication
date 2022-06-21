@@ -1,0 +1,20 @@
+{
+  "name": "@aarchar/complex_protos",
+  "version": "1.0.1",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "pb:gen": "powershell -ExecutionPolicy unrestricted ./scripts/gen.ps1",
+    "pub": "npm version patch && npm publish --access public"
+  },
+  "keywords": [],
+  "author": "arunkumar narayanaswamy",
+  "license": "ISC",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.6.7",
+    "google-protobuf": "^3.20.1"
+  },
+  "devDependencies": {
+    "grpc-tools": "^1.11.2"
+  }
+}
