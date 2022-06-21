@@ -30,7 +30,7 @@ const getHotels = async (cityCode) => {
     const token = await getToken()
     const options = {
       method: 'get',
-      url: `https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city?cityCode=${cityCode}&radius=1&radiusUnit=MILE&hotelSource=ALL`,
+      url: `https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city?cityCode=${cityCode}&radius=5&radiusUnit=MILE&hotelSource=ALL`,
       headers: {
         accept: 'application/json',
         Authorization: `Bearer ${token}`,
