@@ -1,13 +1,12 @@
 const express = require('express')
-const { getWeatherData } = require('./server_implementation')
+const { getHotelsData } = require('./server_implementation')
 const RedisClient = require('./utils/RedisClient')
 const app = express()
-const port = 3000
+const port = 4000
 
-app.get('/api/weather/:city', async (req, res) => {
+app.get('/api/hotels/:city', async (req, res) => {
   const { city } = req.params
-
-  const data = await getWeatherData(city)
+  const data = await getHotelsData(city)
   res.send(data)
 })
 
