@@ -3,6 +3,8 @@ const {
   WeathersClient,
 } = require('@aarchar/complex_protos/src/weather_grpc_pb')
 
+const { HotelsClient } = require('@aarchar/complex_protos/src/hotels_grpc_pb')
+
 const WEATHERADDRESS = process.env.WEATHER_GRPC_ADDRESS || 'localhost:5051'
 
 const HOTELSADDRESS = process.env.HOTELS_GRPC_ADDRESS || 'localhost:5052'
@@ -20,4 +22,6 @@ if (useSSL) {
 
 const weathersClient = new WeathersClient(`${WEATHERADDRESS}`, creds)
 
-module.exports = { weathersClient }
+const hotelsClient = new HotelsClient(`${HOTELSADDRESS}`, creds)
+
+module.exports = { weathersClient, hotelsClient }

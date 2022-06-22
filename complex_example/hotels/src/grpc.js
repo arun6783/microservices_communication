@@ -1,10 +1,9 @@
 const grpc = require('@grpc/grpc-js')
 const fs = require('fs')
+const { HotelsService } = require('@aarchar/complex_protos/src/hotels_grpc_pb')
+const grpc_implementation = require('./grpc_implementation')
 
-const serviceImpl = require('./grpc_server_impl')
-
-const { GreetServiceService } = require('../proto/greet_grpc_pb')
-const addr = 'localhost:5051'
+const addr = 'localhost:5052'
 
 function cleanup(server) {
   console.log('cleanup')
@@ -17,7 +16,7 @@ function cleanup(server) {
 function main() {
   const server = new grpc.Server()
 
-  const tls = true
+  const tls = false
   let creds
 
   if (tls) {
@@ -41,7 +40,7 @@ function main() {
     cleanup(server)
   })
 
-  server.addService(GreetServiceService, serviceImpl)
+  server.addService(HotelsService, grpc_implementation)
 
   server.bindAsync(addr, creds, (err, _) => {
     if (err) {

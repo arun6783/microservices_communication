@@ -5,8 +5,6 @@ const getWeatherForecast = async (call, callback) => {
   console.log('grpc - getweatherforecast was invoked')
   const city = call.request.getCity()
   const weatherData = await getWeatherData(city)
-  console.log('grpc - weatherData', weatherData)
-
   const foreCastList = weatherData.forecast.map((f) => {
     return new weatherPb.Weather().setDate(f.date).setTemp(f.temp)
   })
