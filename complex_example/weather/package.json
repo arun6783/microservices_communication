@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "concurrently \"nodemon src/index.js\" \"nodemon src/grpc.js\""
   },
   "keywords": [],
   "author": "",
@@ -13,7 +13,11 @@
     "nodemon": "^2.0.16"
   },
   "dependencies": {
+    "@aarchar/complex_protos": "^1.0.2",
+    "@grpc/grpc-js": "^1.6.7",
     "axios": "^0.27.2",
+    "concurrently": "^7.2.2",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "node-redis": "^0.1.7",
     "redis": "^4.1.0"

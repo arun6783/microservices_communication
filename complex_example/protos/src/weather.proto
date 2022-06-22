@@ -1,0 +1,23 @@
+syntax = "proto3";
+package weather;
+
+
+service Weathers{
+    rpc getWeatherForecast(WeatherRequest) returns(WeatherResponse);
+}
+
+message WeatherRequest{
+    string  city  =1;
+}
+
+message WeatherResponse{
+    string city =1;
+    repeated Weather forecast =2;
+    bool cache =3;
+}
+
+message Weather{
+    string date =1;
+    double temp  =2;
+}
+

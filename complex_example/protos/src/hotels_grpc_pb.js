@@ -4,15 +4,15 @@
 var grpc = require('@grpc/grpc-js');
 var src_hotels_pb = require('../src/hotels_pb.js');
 
-function serialize_Hotels_GetHotelRequest(arg) {
-  if (!(arg instanceof src_hotels_pb.GetHotelRequest)) {
-    throw new Error('Expected argument of type Hotels.GetHotelRequest');
+function serialize_Hotels_HotelRequest(arg) {
+  if (!(arg instanceof src_hotels_pb.HotelRequest)) {
+    throw new Error('Expected argument of type Hotels.HotelRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_Hotels_GetHotelRequest(buffer_arg) {
-  return src_hotels_pb.GetHotelRequest.deserializeBinary(new Uint8Array(buffer_arg));
+function deserialize_Hotels_HotelRequest(buffer_arg) {
+  return src_hotels_pb.HotelRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_Hotels_HotelResponse(arg) {
@@ -32,10 +32,10 @@ var HotelsService = exports.HotelsService = {
     path: '/Hotels.Hotels/getHotels',
     requestStream: false,
     responseStream: false,
-    requestType: src_hotels_pb.GetHotelRequest,
+    requestType: src_hotels_pb.HotelRequest,
     responseType: src_hotels_pb.HotelResponse,
-    requestSerialize: serialize_Hotels_GetHotelRequest,
-    requestDeserialize: deserialize_Hotels_GetHotelRequest,
+    requestSerialize: serialize_Hotels_HotelRequest,
+    requestDeserialize: deserialize_Hotels_HotelRequest,
     responseSerialize: serialize_Hotels_HotelResponse,
     responseDeserialize: deserialize_Hotels_HotelResponse,
   },

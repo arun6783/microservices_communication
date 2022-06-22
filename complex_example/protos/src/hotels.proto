@@ -7,9 +7,17 @@ service Hotels{
 }
 
 message HotelRequest{
-    string  name  =1;
+    string cityCode =1;
 }
 
 message HotelResponse{
-    string abc =1;
+    string city = 1;
+    repeated Hotel hotels= 2;
+    bool cache = 3;
 }
+
+message Hotel{
+    string name = 1;
+    string hotelId =2;
+}
+

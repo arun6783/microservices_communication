@@ -1,9 +1,9 @@
-const axios = require('axios')
 const express = require('express')
 const {
   buildhotelsClient,
   buildweatherClient,
 } = require('../utils/build-client')
+const { getRandomCity } = require('./getRandomCity')
 const restRouter = express.Router()
 const client = buildhotelsClient()
 const weatherClient = buildweatherClient()
@@ -41,17 +41,6 @@ async function getweather(city, responseData) {
     console.log('weather service', err)
   }
   return
-}
-
-function getRandomCity() {
-  const cities = [
-    { city: 'delhi', code: 'DEL' },
-    { city: 'chennai', code: 'MAA' },
-    { city: 'athens', code: 'ATH' },
-    { city: 'rome', code: 'ROM' },
-    { city: 'Cairo', code: 'CAI' },
-  ]
-  return cities[Math.floor(Math.random() * cities.length)]
 }
 
 module.exports = { restRouter }
