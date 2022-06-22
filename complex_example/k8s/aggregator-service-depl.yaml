@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: holidayaggregator-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: holidayaggregator
+  template:
+    metadata:
+      labels:
+        app: holidayaggregator
+    spec:
+      containers:
+        - name: holidayaggregator
+          image: arun6783/holidayaggregator
+          env:
+            - name: WEATHER_GRPC_ADDRESS
+              value: 'weather-srv:5051'
+            - name: HOTELS_GRPC_ADDRESS
+              value: 'holiday-srv:5052'
+            - name: HOTELS_SSL_ADDRESS
+              value: 'hotels-srv:4443'
+            - name: HOTELS_ADDRESS
+              value: 'hotels-srv:4000'
+            - name: WEATHER_SSL_ADDRESS
+              value: 'weather-srv:3443'
+            - name: USE_SSL
+              value: 'false'
+            - name: WEATHER_ADDRESS
+              value: 'weather-srv:3000'
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: holidayaggregator-srv
+spec:
+  selector:
+    app: holidayaggregator
+  ports:
+    - name: holidayaggregator-tcp
+      port: 5000
+      targetPort: 5000

@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hotels-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hotels
+  template:
+    metadata:
+      labels:
+        app: hotels
+    spec:
+      containers:
+        - name: hotels
+          image: arun6783/hotels
+          env:
+            - name: USE_SSL
+              value: 'false'
+            - name: AGGREGATION_REDIS_HOST
+              value: 'aggregation-redis-srv'
+            - name: CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: hotels-secret
+                  key: CLIENT_ID
+            - name: CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: hotels-secret
+                  key: CLIENT_SECRET
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: hotels-srv
+spec:
+  selector:
+    app: hotels
+  ports:
+    - name: hotels-tcp
+      port: 4000
+      targetPort: 4000
+    - name: hotels-https
+      port: 4443
+      targetPort: 4443
+    - name: hotels-grpc
+      port: 5052
+      targetPort: 5052

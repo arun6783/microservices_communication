@@ -2,7 +2,6 @@ const weatherPb = require('@aarchar/complex_protos/src/weather_pb')
 const { getWeatherData } = require('./server_implementation')
 
 const getWeatherForecast = async (call, callback) => {
-  console.log('grpc - getweatherforecast was invoked')
   const city = call.request.getCity()
   const weatherData = await getWeatherData(city)
   const foreCastList = weatherData.forecast.map((f) => {

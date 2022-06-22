@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weather
+  template:
+    metadata:
+      labels:
+        app: weather
+    spec:
+      containers:
+        - name: weather
+          image: arun6783/weather
+          env:
+            - name: USE_SSL
+              value: 'false'
+            - name: AGGREGATION_REDIS_HOST
+              value: 'aggregation-redis-srv'
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: hotels-secret
+                  key: API_KEY
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: weather-srv
+spec:
+  selector:
+    app: weather
+  ports:
+    - name: weather-tcp
+      port: 3000
+      targetPort: 3000
+    - name: weather-grpc
+      port: 5051
+      targetPort: 5051
+    - name: weather-https
+      port: 3443
+      targetPort: 3443

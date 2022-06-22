@@ -7,15 +7,13 @@ class RedisClient {
   async getConnection() {
     if (this.connected) return this.client
     else {
-      this.client = Redis.createClient(6379, 'localhost')
-
-      this.client.on('error', (err) => {
-        console.log('Error occured while connecting or accessing redis server')
+      this.client = Redis.createClient({
+        url: `redis://${process.env.AGGREGATION_REDIS_HOST}:6379`,
       })
 
       this.client.on('error', (err) => {
         console.log(
-          'Error occured while connecting or accessing redis server',
+          'Error occured while connecting or accessing redis server-onerr',
           err
         )
       })
