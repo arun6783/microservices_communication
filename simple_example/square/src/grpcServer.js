@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const PORT = 4500
-const useSsl = process.env.USE_SSL == 'true' || true
+const useSsl = process.env.USE_SSL == 'true' || false
 
 let square_proto = grpc.loadPackageDefinition(squarePackageDefinition).square
 

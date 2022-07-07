@@ -45,3 +45,11 @@ const buildSquareRootClient = () => {
   return sqrtclient
 }
 export { buildSquareClient, buildSquareRootClient }
+
+
+
+
+
+// "ReviewsUrl": "https://reviews-container-app.livelyisland-8446ccc3.uksouth.azurecontainerapps.io",
+// "StockUrl": "https://stock-container-app.livelyisland-8446ccc3.uksouth.azurecontainerapps.io",
+// "ProductDetailUrl": "https://productdetails-container-app.livelyisland-8446ccc3.uksouth.azurecontainerapps.io"

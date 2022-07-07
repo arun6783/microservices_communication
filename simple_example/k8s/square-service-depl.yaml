@@ -17,7 +17,7 @@ spec:
           image: arun6783/square
           env:
             - name: USE_SSL
-              value: 'false'
+              value: 'true'
 ---
 kind: Service
 apiVersion: v1
