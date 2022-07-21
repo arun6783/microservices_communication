@@ -1,3 +1,22 @@
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: ingress-service
+#   annotations:
+#     kubernetes.io/ingress.class: nginx
+#     nginx.ingress.kubernetes.io/use-regex: 'true'
+# spec:
+#   rules:
+#     - host: aggregator.local
+#       http:
+#         paths:
+#           - path: /?(.*)
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: aggregator-srv
+#                 port:
+#                   number: 3000
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -7,13 +26,32 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
-    - host: aggregator.local
+    - host: simplemathapp.web
       http:
         paths:
           - path: /?(.*)
             pathType: Prefix
             backend:
               service:
-                name: aggregator-srv
+                name: simplemathapp-srv
                 port:
-                  number: 3000
+                  number: 8082
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: simplemathappingress
+#   annotations:
+#     httpbin.ingress.kubernetes.io/rewrite-target: /
+#     kubernetes.io/ingress.class: 'kong'
+# spec:
+#   rules:
+#     - host: simplemathapp.web
+#       http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: simplemathapp-srv
+#                 port:
+#                   number: 8080

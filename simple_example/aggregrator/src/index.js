@@ -2,8 +2,10 @@ import express from 'express'
 import { grpcRouter } from './routes/grpc.js'
 import { restRouter } from './routes/rest.js'
 
-const app = express()
+import cors from 'cors'
 
+const app = express()
+app.use(cors())
 // if (process.env.USE_SSL == 'true') {
 //   console.log('ssl is true setting node tls reject')
 //   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'

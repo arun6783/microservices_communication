@@ -20,7 +20,7 @@ app.get('/api/square/:id', async (req, res) => {
 
   const square = Math.pow(id, 2)
 
-  res.status(200).json(square)
+  res.status(200).json({ id: 1 })
 })
 const httpPort = 4000
 const httpsPort = 4443

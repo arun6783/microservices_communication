@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simplemathapp-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simplemathapp
+  template:
+    metadata:
+      labels:
+        app: simplemathapp
+    spec:
+      containers:
+        - name: simplemathapp
+          image: arun6783/simplemathapp
+          env:
+            - name: AGG_HOST
+              value: 'aggregator-srv'
+            - name: AGG_PORT
+              value: '3000'
+            - name: PORT
+              value: '8082'
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: simplemathapp-srv
+spec:
+  selector:
+    app: simplemathapp
+  ports:
+    - name: simplemathapp-tcp
+      port: 8082
+      targetPort: 8082

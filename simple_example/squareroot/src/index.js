@@ -18,9 +18,9 @@ const app = express()
 app.get('/api/squareroot/:id', async (req, res) => {
   const { id } = req.params
 
-  const square = Math.pow(id, 2)
+  const sqrt = Math.sqrt(id)
 
-  res.status(200).json(square)
+  res.status(200).json(sqrt)
 })
 
 const httpPort = 5000
