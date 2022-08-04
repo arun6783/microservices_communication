@@ -10,7 +10,8 @@ const squareRootClient = buildSquareRootClient()
 
 router.get('/api/rest/:limit', async (req, res) => {
   const { limit } = req.params
-  let resp = {}
+  let resp = { totalTimeInMs: 0 }
+  let startTime = new Date()
   for (let i = 1; i <= limit; i++) {
     try {
       let responseData = { square: null, squareRoot: null }
@@ -23,6 +24,8 @@ router.get('/api/rest/:limit', async (req, res) => {
       console.log('error = ', er)
     }
   }
+  let endTime = new Date()
+  resp.totalTimeInMs = endTime - startTime
   res.send(resp)
 })
 

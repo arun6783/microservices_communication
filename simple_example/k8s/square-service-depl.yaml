@@ -17,7 +17,14 @@ spec:
           image: arun6783/square
           env:
             - name: USE_SSL
-              value: 'true'
+              value: 'false'
+          ports:
+            - protocol: TCP
+              containerPort: 4000
+            - protocol: TCP
+              containerPort: 4443
+            - protocol: TCP
+              containerPort: 4500
 ---
 kind: Service
 apiVersion: v1
@@ -34,5 +41,6 @@ spec:
       port: 4443
       targetPort: 4443
     - name: grpc
+      protocol: TCP
       port: 4500
       targetPort: 4500

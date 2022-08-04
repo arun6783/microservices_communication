@@ -27,7 +27,7 @@ spec:
             - name: SQUARE_ROOT_PORT
               value: '5000'
             - name: USE_SSL
-              value: 'true'
+              value: 'false'
             - name: SQUARE_SSL_PORT
               value: '4443'
             - name: SQUARE_ROOT_SSL_PORT
@@ -46,3 +46,4 @@ spec:
     - name: http
       port: 3000
       targetPort: 3000
+  type: LoadBalancer

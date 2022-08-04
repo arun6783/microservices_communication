@@ -3,14 +3,10 @@ import { grpcRouter } from './routes/grpc.js'
 import { restRouter } from './routes/rest.js'
 
 import cors from 'cors'
-
-const app = express()
-app.use(cors())
-// if (process.env.USE_SSL == 'true') {
-//   console.log('ssl is true setting node tls reject')
-//   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
-// }
-
+import hpropagate from 'hpropagate'
+hpropagate()
+var app = express()
+app.use(cors({ origin: '*' }))
 app.use(restRouter)
 app.use(grpcRouter)
 app.listen(3000, () => {

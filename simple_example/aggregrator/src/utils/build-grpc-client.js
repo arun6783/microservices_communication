@@ -38,6 +38,10 @@ const squareRootClient = new squareroot_proto.SquareRoot(
   creds
 )
 
+console.log(
+  `square host ${SQUAREHOST} , square port ${SQUAREPORT} , use ssl = ${useSSL}.squareroot host ${SQUAREROOTHOST},squareroot port ${SQUAREROOTPORT}.`
+)
+
 const client = new square_proto.Square(`${SQUAREHOST}:${SQUAREPORT}`, creds)
 
 export { client, squareRootClient }
