@@ -27,12 +27,12 @@ spec:
   selector:
     app: square
   ports:
-    - name: square-tcp
+    - name: http
       port: 4000
       targetPort: 4000
-    - name: square-https
+    - name: https
       port: 4443
       targetPort: 4443
-    - name: square-grpc
+    - name: grpc
       port: 4500
       targetPort: 4500

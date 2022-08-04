@@ -27,12 +27,12 @@ spec:
   selector:
     app: squareroot
   ports:
-    - name: squareroot-tcp
+    - name: http
       port: 5000
       targetPort: 5000
-    - name: squareroot-grpc
+    - name: grpc
       port: 5500
       targetPort: 5500
-    - name: squareroot-https
+    - name: https
       port: 5443
       targetPort: 5443

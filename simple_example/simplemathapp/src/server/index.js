@@ -2,7 +2,11 @@ const express = require('express')
 const path = require('path')
 const axios = require('axios')
 const buildFolder = path.join(__dirname, '..', '..', 'build')
-const app = express()
+
+require('hpropagate')()
+var app = express()
+const cors = require('cors')
+app.use(cors({ origin: '*' }))
 
 const port = 8082
 

@@ -31,6 +31,6 @@ spec:
   selector:
     app: simplemathapp
   ports:
-    - name: simplemathapp-tcp
+    - name: http
       port: 8082
       targetPort: 8082

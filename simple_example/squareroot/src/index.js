@@ -13,7 +13,12 @@ const certOptions = {
   cert: fs.readFileSync(path.join(__dirname, 'ssl', 'server.crt')),
 }
 
-const app = express()
+import cors from 'cors'
+import hpropagate from 'hpropagate'
+hpropagate()
+var app = express()
+
+app.use(cors({ origin: '*' }))
 
 app.get('/api/squareroot/:id', async (req, res) => {
   const { id } = req.params
