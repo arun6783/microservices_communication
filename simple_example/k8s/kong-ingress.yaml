@@ -1,53 +1,19 @@
-# # apiVersion: networking.k8s.io/v1
-# # kind: Ingress
-# # metadata:
-# #   name: kong-istio-ingress
-# #   annotations:
-# #     konghq.com/preserve-host: 'false'
-# # spec:
-# #   ingressClassName: kong
-# #   rules:
-# #     - host: simplemathapp.web
-# #       http:
-# #         paths:
-# #           - path: /?(.*)
-# #             pathType: Prefix
-# #             backend:
-# #               service:
-# #                 name: simplemathapp-srv
-# #                 port:
-# #                   number: 8082
-
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: kong-istio-ingress
-#   annotations:
-#     konghq.com/preserve-host: 'false'
-# spec:
-#   ingressClassName: kong
-#   rules:
-#     - host: simplemathapp.aggregator
-#     - http:
-#         paths:
-#           - path: /(api/grpc).*
-#             pathType: Prefix
-#             backend:
-#               service:
-#                 name: aggregator-srv
-#                 port:
-#                   number: 3000
-#           - path: /(api/rest).*
-#             pathType: Prefix
-#             backend:
-#               service:
-#                 name: aggregator-srv
-#                 port:
-#                   number: 3000
-#           # - path: /
-#           #   pathType: Exact
-#           #   backend:
-#           #     service:
-#           #       name: simplemathapp-srv
-#           #       port:
-#           #         number: 8082
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: simplemathingress
+  annotations:
+    konghq.com/preserve-host: 'false'
+spec:
+  ingressClassName: kong
+  rules:
+    - host: simplemathapp.web
+      http:
+        paths:
+          - path: /(|static).*
+            pathType: Prefix
+            backend:
+              service:
+                name: simplemathapp-srv
+                port:
+                  number: 8082

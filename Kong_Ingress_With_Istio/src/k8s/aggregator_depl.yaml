@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lotr-aggregator-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lotr-aggregator
+  template:
+    metadata:
+      labels:
+        app: lotr-aggregator
+    spec:
+      containers:
+        - name: lotr-aggregator
+          image: arun6783/lotr_aggregator
+          ports:
+            - protocol: TCP
+              containerPort: 5000
+          env:
+            - name: DEBUG_CALLS
+              value: 'TRUE'
+            - name: GRPC_SERVER_HOST
+              value: 'lotr-grpc-srv'
+            - name: GRPC_SERVER_PORT
+              value: '9000'
+            - name: NODE_SERVER_PORT
+              value: '9500'
+            - name: NODE_SERVER_HTTPS_PORT
+              value: '9600'
+            - name: NODE_SERVER_HOST
+              value: 'lotr-node-srv'
+            - name: 'SECURE_TLS'
+              value: 'yes'
+          volumeMounts:
+            - mountPath: '/cert'
+              name: my-secret
+              readOnly: true
+
+      volumes:
+        - name: my-secret
+          secret:
+            secretName: my-secret
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: lotr-aggregator-srv
+  annotations:
+    # konghq.com/protocol: grpcs
+spec:
+  selector:
+    app: lotr-aggregator
+  ports:
+    - name: http
+      port: 5000
+      targetPort: 5000
+  type: LoadBalancer

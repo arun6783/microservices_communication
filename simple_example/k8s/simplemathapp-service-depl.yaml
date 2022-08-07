@@ -27,6 +27,8 @@ kind: Service
 apiVersion: v1
 metadata:
   name: simplemathapp-srv
+  annotations:
+    konghq.com/client-cert: my-tls-secret
 spec:
   selector:
     app: simplemathapp
