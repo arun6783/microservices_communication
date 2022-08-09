@@ -10,6 +10,21 @@ const port = 8082
 
 app.use(express.static(buildFolder))
 
+app.get('/api/products', async (req, res) => {
+  try {
+    const orchestratorUrl =
+      process.env.OrchestratorUrl || 'http://localhost:6000'
+    const { data } = await axios.get(`${orchestratorUrl}/api/products`)
+
+    return res.send(data)
+  } catch (err) {
+    console.log('error occured when calling agg service to get products', err)
+    return res.status(500).send({
+      error: 'Error occured when calling product detail orchestrator service',
+    })
+  }
+})
+
 app.get('/api/productdetails/:id', async (req, res) => {
   try {
     const orchestratorUrl =
@@ -20,7 +35,10 @@ app.get('/api/productdetails/:id', async (req, res) => {
 
     return res.send(data)
   } catch (err) {
-    console.log('error occured when calling agg service', err)
+    console.log(
+      'error occured when calling agg service when getting product detail',
+      err
+    )
     return res.status(500).send({
       error: 'Error occured when calling product detail orchestrator service',
     })

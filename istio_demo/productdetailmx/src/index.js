@@ -5,6 +5,10 @@ const hostname = os.hostname()
 const app = express()
 const port = 5000
 
+app.get('/api/products', (req, res) => {
+  return res.send(products)
+})
+
 app.get('/api/productdetail/:id', (req, res) => {
   const product = products.find((x) => {
     return x.id == req.params.id

@@ -14,6 +14,18 @@ const productDetailMxAddr =
 const reviewsMxAddr = process.env.ReviewsUrl || 'http://localhost:4500'
 const stockMxAddr = process.env.StockUrl || 'http://localhost:4000'
 
+app.get('/api/products', async (req, res) => {
+  try {
+    const { data } = await axios.get(`${productDetailMxAddr}/api/products`)
+    return res.send(data)
+  } catch (e) {
+    console.log('error when calling product detail mx to get produccts', e)
+    return res.status(500).send({
+      error: `error occured when making a call to mx to get products. ${e}`,
+    })
+  }
+})
+
 app.get('/api/productdetails/:id', async (req, res) => {
   const id = req.params.id
   console.log('id is ', id)
