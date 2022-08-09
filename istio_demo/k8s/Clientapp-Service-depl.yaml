@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myshop-client-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myshop-client
+  template:
+    metadata:
+      labels:
+        app: myshop-client
+    spec:
+      containers:
+        - name: myshop-client
+          image: arun6783/myshop-client
+          env:
+            - name: OrchestratorUrl
+              value: 'http://myshop-orchestrator-srv:6000'
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: myshop-client-srv
+spec:
+  selector:
+    app: myshop-client
+  ports:
+    - name: http
+      port: 8082
+      targetPort: 8082
+  type: LoadBalancer

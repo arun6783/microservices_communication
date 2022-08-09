@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myshop-productdetail-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myshop-productdetail
+  template:
+    metadata:
+      labels:
+        app: myshop-productdetail
+    spec:
+      containers:
+        - name: myshop-productdetail
+          image: arun6783/myshop-productdetail
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: myshop-productdetail-srv
+spec:
+  selector:
+    app: myshop-productdetail
+  ports:
+    - name: http
+      port: 5000
+      targetPort: 5000

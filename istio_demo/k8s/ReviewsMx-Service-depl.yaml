@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myshop-reviews-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myshop-reviews
+  template:
+    metadata:
+      labels:
+        app: myshop-reviews
+    spec:
+      containers:
+        - name: myshop-reviews
+          image: arun6783/myshop-reviews
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: myshop-reviews-srv
+spec:
+  selector:
+    app: myshop-reviews
+  ports:
+    - name: http
+      port: 4500
+      targetPort: 4500

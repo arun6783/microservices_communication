@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myshop-stock-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myshop-stock
+  template:
+    metadata:
+      labels:
+        app: myshop-stock
+    spec:
+      containers:
+        - name: myshop-stock
+          image: arun6783/myshop-stock
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: myshop-stock-srv
+spec:
+  selector:
+    app: myshop-stock
+  ports:
+    - name: http
+      port: 4000
+      targetPort: 4000

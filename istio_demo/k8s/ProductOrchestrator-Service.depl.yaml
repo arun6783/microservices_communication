@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myshop-orchestrator-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myshop-orchestrator
+  template:
+    metadata:
+      labels:
+        app: myshop-orchestrator
+    spec:
+      containers:
+        - name: myshop-orchestrator
+          image: arun6783/myshop-orchestrator
+          env:
+            - name: ProductDetailUrl
+              value: 'http://myshop-productdetail-srv:5000'
+            - name: ReviewsUrl
+              value: 'http://myshop-reviews-srv:4500'
+            - name: StockUrl
+              value: 'http://myshop-stock-srv:4000'
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: myshop-orchestrator-srv
+spec:
+  selector:
+    app: myshop-orchestrator
+  ports:
+    - name: http
+      port: 6000
+      targetPort: 6000
