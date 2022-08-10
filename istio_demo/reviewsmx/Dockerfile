@@ -8,3 +8,6 @@ COPY . .
 CMD ["npm", "start"]
 
 EXPOSE 4500
+
+# grpc port
+EXPOSE 4600 

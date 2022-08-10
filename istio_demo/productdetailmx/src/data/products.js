@@ -9,9 +9,6 @@ module.exports = [
     category: 'Parfum',
     pricePer100: 131.2,
     price: 65.6,
-    countInStock: 10,
-    rating: 4.8,
-    numReviews: 1200,
   },
   {
     id: 2,
@@ -23,9 +20,6 @@ module.exports = [
     category: 'Parfum',
     pricePer100: 166.0,
     price: 83.0,
-    countInStock: 17,
-    rating: 4.5,
-    numReviews: 80,
   },
   {
     id: 3,
@@ -37,9 +31,6 @@ module.exports = [
     category: 'Parfum',
     pricePer100: 65.0,
     price: 32.5,
-    countInStock: 5,
-    rating: 4,
-    numReviews: 12,
   },
   {
     id: 4,
@@ -51,9 +42,6 @@ module.exports = [
     category: 'Parfum',
     pricePer100: 185.6,
     price: 92.8,
-    countInStock: 11,
-    rating: 4.2,
-    numReviews: 32,
   },
   {
     id: 5,
@@ -65,9 +53,6 @@ module.exports = [
     category: 'Parfum',
     pricePer100: 72.0,
     price: 36.0,
-    countInStock: 12,
-    rating: 3.9,
-    numReviews: 80,
   },
   {
     id: 6,
@@ -79,8 +64,5 @@ module.exports = [
     category: 'Parfum',
     pricePer100: 72.0,
     price: 52.8,
-    countInStock: 0,
-    rating: 3.5,
-    numReviews: 12,
   },
 ]

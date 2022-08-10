@@ -2,6 +2,13 @@ const express = require('express')
 const axios = require('axios')
 const app = express()
 const cors = require('cors')
+const { CreateGrpcClient, ServiceConsts } = require('./grpc_client')
+const {
+  getRatingsAndReviews,
+  getStock,
+  getProductDetail,
+} = require('./grpcService')
+
 const port = 6000
 app.use(
   cors({
@@ -9,15 +16,18 @@ app.use(
   })
 )
 
-const productDetailMxAddr =
-  process.env.ProductDetailUrl || 'http://localhost:5000'
-const reviewsMxAddr = process.env.ReviewsUrl || 'http://localhost:4500'
-const stockMxAddr = process.env.StockUrl || 'http://localhost:4000'
-
 app.get('/api/products', async (req, res) => {
   try {
-    const { data } = await axios.get(`${productDetailMxAddr}/api/products`)
-    return res.send(data)
+    const client = CreateGrpcClient(ServiceConsts.ProductsDetailsService)
+
+    client.getProducts({}, function (err, response) {
+      if (err) {
+        console.log('getting products via grpc endpoints error', err)
+        return res.status(500).send({ error: err })
+      }
+
+      res.send(response.products)
+    })
   } catch (e) {
     console.log('error when calling product detail mx to get produccts', e)
     return res.status(500).send({
@@ -33,12 +43,12 @@ app.get('/api/productdetails/:id', async (req, res) => {
   if (id) {
     try {
       const datas = await Promise.all([
-        axios.get(`${productDetailMxAddr}/api/productdetail/${id}`),
-        axios.get(`${reviewsMxAddr}/api/reviews/${id}`),
-        axios.get(`${stockMxAddr}/api/stock/${id}`),
+        getRatingsAndReviews(id),
+        getStock(id),
+        getProductDetail(id),
       ])
-      datas.forEach(({ data }) => {
-        Object.assign(responseData, data)
+      datas.forEach((d) => {
+        Object.assign(responseData, d)
       })
     } catch (e) {
       return res
