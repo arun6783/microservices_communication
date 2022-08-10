@@ -3,6 +3,7 @@ syntax = "proto3";
 package myshop;
 
 import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
 
 service ProductsOrchestratorService{
     rpc getProducts(google.protobuf.Empty) returns(ProductsResponse);
@@ -51,7 +52,7 @@ message ProductDetail{
 
 message Rating {
     double rating = 1;
-    uint32 numReviews = 2;
+    google.protobuf.Int32Value numReviews = 2;
 }
 
 message CountInStock{

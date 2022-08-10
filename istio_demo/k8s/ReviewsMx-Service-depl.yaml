@@ -11,10 +11,49 @@ spec:
     metadata:
       labels:
         app: myshop-reviews
+        version: v1
     spec:
       containers:
         - name: myshop-reviews
-          image: arun6783/myshop-reviews
+          image: arun6783/myshop-reviews:grpc
+          ports:
+            - containerPort: 4600
+          volumeMounts:
+            - name: config-volume
+              mountPath: /protos/
+      volumes:
+        - name: config-volume
+          configMap:
+            name: myshop.proto
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myshop-reviews-depl-v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myshop-reviews
+  template:
+    metadata:
+      labels:
+        app: myshop-reviews
+        version: v2
+    spec:
+      containers:
+        - name: myshop-reviews
+          image: arun6783/myshop-reviews:grpcv2
+          ports:
+            - containerPort: 4600
+          volumeMounts:
+            - name: config-volume
+              mountPath: /protos/
+      volumes:
+        - name: config-volume
+          configMap:
+            name: myshop.proto
 ---
 kind: Service
 apiVersion: v1
@@ -24,6 +63,6 @@ spec:
   selector:
     app: myshop-reviews
   ports:
-    - name: http
-      port: 4500
-      targetPort: 4500
+    - name: grpc
+      port: 4600
+  type: LoadBalancer

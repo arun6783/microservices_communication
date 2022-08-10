@@ -14,7 +14,14 @@ spec:
     spec:
       containers:
         - name: myshop-stock
-          image: arun6783/myshop-stock
+          image: arun6783/myshop-stock:grpc
+          volumeMounts:
+            - name: config-volume
+              mountPath: /protos/
+      volumes:
+        - name: config-volume
+          configMap:
+            name: myshop.proto
 ---
 kind: Service
 apiVersion: v1
@@ -24,6 +31,6 @@ spec:
   selector:
     app: myshop-stock
   ports:
-    - name: http
-      port: 4000
-      targetPort: 4000
+    - name: grpc
+      port: 4100
+      targetPort: 4100

@@ -14,14 +14,21 @@ spec:
     spec:
       containers:
         - name: myshop-orchestrator
-          image: arun6783/myshop-orchestrator
+          image: arun6783/myshop-orchestrator:grpc
           env:
-            - name: ProductDetailUrl
-              value: 'http://myshop-productdetail-srv:5000'
-            - name: ReviewsUrl
-              value: 'http://myshop-reviews-srv:4500'
-            - name: StockUrl
-              value: 'http://myshop-stock-srv:4000'
+            - name: ProductOrchestratorGrpcHost
+              value: 'myshop-productdetail-srv'
+            - name: ReviewsGrpcHost
+              value: 'myshop-reviews-srv'
+            - name: StockGrpcHost
+              value: 'myshop-stock-srv'
+          volumeMounts:
+            - name: config-volume
+              mountPath: /protos/
+      volumes:
+        - name: config-volume
+          configMap:
+            name: myshop.proto
 ---
 kind: Service
 apiVersion: v1
@@ -34,3 +41,4 @@ spec:
     - name: http
       port: 6000
       targetPort: 6000
+  type: LoadBalancer

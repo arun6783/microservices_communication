@@ -14,7 +14,14 @@ spec:
     spec:
       containers:
         - name: myshop-productdetail
-          image: arun6783/myshop-productdetail
+          image: arun6783/myshop-productdetail:grpc
+          volumeMounts:
+            - name: config-volume
+              mountPath: /protos/
+      volumes:
+        - name: config-volume
+          configMap:
+            name: myshop.proto
 ---
 kind: Service
 apiVersion: v1
@@ -24,6 +31,7 @@ spec:
   selector:
     app: myshop-productdetail
   ports:
-    - name: http
-      port: 5000
-      targetPort: 5000
+    - name: grpc
+      port: 5500
+      targetPort: 5500
+  #type: LoadBalancer

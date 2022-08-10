@@ -15,12 +15,15 @@ const ProductDetail = ({ match }) => {
   const getProductDetail = async (id) => {
     setLoading(true)
     setError(undefined)
-
-    const { data } = await axios.get(`/api/productdetails/${id}`)
-    if (data && data.name) {
-      setProduct(data)
-    } else {
-      setError('Product Not found')
+    try {
+      const { data } = await axios.get(`/api/productdetails/${id}`)
+      if (data && data.name) {
+        setProduct(data)
+      } else {
+        setError('Product Not found')
+      }
+    } catch (err) {
+      setError('Error when getting product')
     }
     setLoading(false)
   }
@@ -33,7 +36,12 @@ const ProductDetail = ({ match }) => {
       {loading ? (
         <Loader></Loader>
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <>
+          <Link className="btn btn-dark my-3" to="/">
+            Back
+          </Link>
+          <Message variant="danger">{error}</Message>
+        </>
       ) : (
         product && (
           <>
@@ -55,7 +63,7 @@ const ProductDetail = ({ match }) => {
                     <ListGroup.Item>
                       <Rating
                         rating={product.rating}
-                        text={`${product.numReviews} reviews`}
+                        numReviews={product.numReviews}
                       />
                     </ListGroup.Item>
                   ) : null}

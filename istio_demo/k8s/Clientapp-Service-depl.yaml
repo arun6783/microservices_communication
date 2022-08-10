@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: myshop-client
-          image: arun6783/myshop-client
+          image: arun6783/myshop-client:grpc
           env:
             - name: OrchestratorUrl
               value: 'http://myshop-orchestrator-srv:6000'

@@ -5,7 +5,8 @@ exports.getRatingsAndReviews = (i) => {
   return new Promise((resolve, reject) =>
     client.getProductReview({ id: i }, function (err, response) {
       if (err) {
-        return reject(err)
+        console.log('error when calling reviews mx', err)
+        return resolve(null)
       }
 
       resolve(response)
@@ -14,16 +15,23 @@ exports.getRatingsAndReviews = (i) => {
 }
 
 exports.getStock = (i) => {
-  const client = CreateGrpcClient(ServiceConsts.StockService)
-  return new Promise((resolve, reject) =>
-    client.getStockInCount({ id: i }, function (err, response) {
-      if (err) {
-        return reject(err)
-      }
+  return new Promise((resolve, reject) => {
+    try {
+      const client = CreateGrpcClient(ServiceConsts.StockService)
+      client.getStockInCount({ id: i }, function (err, response) {
+        if (err) {
+          console.log('error when calling stock mx', err)
+          return resolve(null)
+        }
 
-      resolve(response)
-    })
-  )
+        resolve(response)
+      })
+    } catch (er) {
+      console.log('stock mx trying to connect error', er)
+
+      return resolve(null)
+    }
+  })
 }
 
 exports.getProductDetail = (i) => {
@@ -31,7 +39,8 @@ exports.getProductDetail = (i) => {
   return new Promise((resolve, reject) =>
     client.getProductDetail({ id: i }, function (err, response) {
       if (err) {
-        return reject(err)
+        console.log('error when calling productdetail mx', err)
+        return resolve(null)
       }
 
       resolve(response)

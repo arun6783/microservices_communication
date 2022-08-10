@@ -17,14 +17,14 @@ const serviceConst = {
   },
 
   StockService: {
-    host: process.env.ProductOrchestratorGrpcHost || 'localhost',
-    port: process.env.ProductOrchestratorGrpcPort || '4100',
+    host: process.env.StockGrpcHost || 'localhost',
+    port: process.env.StockGrpcPort || '4100',
     serviceName: 'StockService',
   },
 
   ReviewsService: {
-    host: process.env.ProductOrchestratorGrpcHost || 'localhost',
-    port: process.env.ProductOrchestratorGrpcPort || '4600',
+    host: process.env.ReviewsGrpcHost || 'localhost',
+    port: process.env.ReviewsGrpcPort || '4600',
     serviceName: 'ReviewsService',
   },
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Rating = ({ rating, text, color }) => {
+const Rating = ({ rating, numReviews, color }) => {
   function ratings() {
     var arr = []
 
@@ -25,9 +25,14 @@ const Rating = ({ rating, text, color }) => {
   }
   return (
     <>
-      <div className='rating'>
+      <div className="rating">
         <span>{ratings().map((i) => i)}</span>
-        <span>{text && text}</span>
+
+        {numReviews && (
+          <span>
+            {numReviews.value ? numReviews.value : numReviews} reviews
+          </span>
+        )}
       </div>
     </>
   )

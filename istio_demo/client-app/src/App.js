@@ -4,12 +4,14 @@ import { Container } from 'react-bootstrap'
 import Home from './Pages/Home'
 import ProductDetail from './Pages/ProductDetail'
 import NotFound from './Pages/NotFound'
+import LoginScreen from './Pages/LoginScreen'
 
 function App() {
   return (
     <Router>
       <main className="py-3">
         <Container>
+          <Route path="/login" component={LoginScreen} />
           <Route path="/product/:id" component={ProductDetail} />
           <Route path="/" component={Home} exact />
           <Route path="/404" component={NotFound} />

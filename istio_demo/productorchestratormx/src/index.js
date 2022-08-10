@@ -43,9 +43,9 @@ app.get('/api/productdetails/:id', async (req, res) => {
   if (id) {
     try {
       const datas = await Promise.all([
-        getRatingsAndReviews(id),
         getStock(id),
         getProductDetail(id),
+        getRatingsAndReviews(id),
       ])
       datas.forEach((d) => {
         Object.assign(responseData, d)
