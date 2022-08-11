@@ -11,7 +11,6 @@ function App() {
     <Router>
       <main className="py-3">
         <Container>
-          <Route path="/login" component={LoginScreen} />
           <Route path="/product/:id" component={ProductDetail} />
           <Route path="/" component={Home} exact />
           <Route path="/404" component={NotFound} />

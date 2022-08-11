@@ -15,6 +15,11 @@ spec:
       containers:
         - name: myshop-stock
           image: arun6783/myshop-stock:grpc
+          env:
+            - name: HostName
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
           volumeMounts:
             - name: config-volume
               mountPath: /protos/
@@ -34,3 +39,4 @@ spec:
     - name: grpc
       port: 4100
       targetPort: 4100
+  type: LoadBalancer

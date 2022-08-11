@@ -3,6 +3,7 @@ const path = require('path')
 const grpc = require('@grpc/grpc-js')
 var protoLoader = require('@grpc/proto-loader')
 const products = require('./data/products')
+const hostname = process.env.HostName
 var PROTO_PATH = path.join(__dirname, '..', '..', 'protos', 'myshop.proto')
 var packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   keepCase: true,
@@ -33,7 +34,7 @@ function getProductDetail(call, callback) {
     const product = products.find((x) => x.id == id)
 
     if (product) {
-      callback(null, product)
+      callback(null, { ...product, hostname })
     } else {
       callback({
         code: 400,

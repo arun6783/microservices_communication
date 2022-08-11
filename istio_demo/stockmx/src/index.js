@@ -1,7 +1,6 @@
 const express = require('express')
 const products = require('./data/products')
-const os = require('os')
-const hostname = os.hostname()
+const hostname = process.env.HostName
 const app = express()
 const port = 4000
 

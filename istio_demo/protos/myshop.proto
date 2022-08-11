@@ -47,14 +47,17 @@ message ProductDetail{
     string category = 6;
     double pricePer100 = 7;
     double price = 8;   
+    string hostname =9;
    
 }
 
 message Rating {
     double rating = 1;
     google.protobuf.Int32Value numReviews = 2;
+    string hostname =3;
 }
 
 message CountInStock{
     uint32 countInStock = 1;
+    string hostname =2;
 }

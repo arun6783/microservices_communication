@@ -15,6 +15,11 @@ spec:
       containers:
         - name: myshop-productdetail
           image: arun6783/myshop-productdetail:grpc
+          env:
+            - name: HostName
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
           volumeMounts:
             - name: config-volume
               mountPath: /protos/
