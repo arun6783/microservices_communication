@@ -2,7 +2,7 @@ var fs = require('fs')
 const path = require('path')
 const grpc = require('@grpc/grpc-js')
 var protoLoader = require('@grpc/proto-loader')
-const hostname = process.env.HostName
+const hostname = process.env.HOSTNAME
 const products = require('./data/products')
 var PROTO_PATH = path.join(__dirname, '..', '..', 'protos', 'myshop.proto')
 var packageDefinition = protoLoader.loadSync(PROTO_PATH, {
@@ -13,6 +13,7 @@ var packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   oneofs: true,
 })
 
+console.log('HOSTNAME', hostname)
 const PORT = 4600
 
 var myshop_service = grpc.loadPackageDefinition(packageDefinition).myshop

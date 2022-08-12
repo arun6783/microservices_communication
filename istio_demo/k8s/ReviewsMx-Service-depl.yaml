@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: myshop-reviews-depl
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: myshop-reviews
@@ -16,6 +16,11 @@ spec:
       containers:
         - name: myshop-reviews
           image: arun6783/myshop-reviews:grpc
+          # env:
+          #   - name: HostName
+          #     valueFrom:
+          #       fieldRef:
+          #         fieldPath: metadata.name
           ports:
             - containerPort: 4600
           volumeMounts:
@@ -69,5 +74,6 @@ spec:
     app: myshop-reviews
   ports:
     - name: grpc
-      port: 4600
-  type: LoadBalancer
+      port: 80
+      targetPort: 4600
+  # type: LoadBalancer

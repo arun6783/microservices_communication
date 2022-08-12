@@ -22,6 +22,10 @@ spec:
               value: 'myshop-reviews-srv'
             - name: StockGrpcHost
               value: 'myshop-stock-srv'
+            - name: HostName
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
           volumeMounts:
             - name: config-volume
               mountPath: /protos/
