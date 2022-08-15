@@ -4,7 +4,6 @@ import { Container } from 'react-bootstrap'
 import Home from './Pages/Home'
 import ProductDetail from './Pages/ProductDetail'
 import NotFound from './Pages/NotFound'
-import LoginScreen from './Pages/LoginScreen'
 
 function App() {
   return (
