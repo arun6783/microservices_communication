@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: myshop-orchestrator-depl
+  #namespace: demo    
 spec:
   replicas: 1
   selector:
@@ -38,6 +39,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: myshop-orchestrator-srv
+  #namespace: demo    
 spec:
   selector:
     app: myshop-orchestrator

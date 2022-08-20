@@ -2,8 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: myshop-reviews-depl
+  #namespace: demo    
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: myshop-reviews
@@ -69,11 +70,12 @@ kind: Service
 apiVersion: v1
 metadata:
   name: myshop-reviews-srv
+  #namespace: demo    
 spec:
   selector:
     app: myshop-reviews
   ports:
     - name: grpc
-      port: 80
+      port: 4600
       targetPort: 4600
   # type: LoadBalancer

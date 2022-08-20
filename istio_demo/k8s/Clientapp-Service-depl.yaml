@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: myshop-client-depl
+  #namespace: demo
 spec:
   replicas: 1
   selector:
@@ -23,6 +24,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: myshop-client-srv
+  #namespace: demo  
 spec:
   selector:
     app: myshop-client
@@ -30,4 +32,4 @@ spec:
     - name: http
       port: 8082
       targetPort: 8082
-  type: LoadBalancer
+  # type: LoadBalancer
