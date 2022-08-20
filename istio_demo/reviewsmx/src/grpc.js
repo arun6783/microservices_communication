@@ -4,6 +4,7 @@ const grpc = require('@grpc/grpc-js')
 var protoLoader = require('@grpc/proto-loader')
 const hostname = process.env.HOSTNAME
 const products = require('./data/products')
+const axios = require('axios')
 var PROTO_PATH = path.join(__dirname, '..', '..', 'protos', 'myshop.proto')
 var packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   keepCase: true,
@@ -18,14 +19,30 @@ const PORT = 4600
 
 var myshop_service = grpc.loadPackageDefinition(packageDefinition).myshop
 
-function getProductReview(call, callback) {
+const getNumberOfReviews = async () => {
+  const addr = process.env.EXTERNAL_API_ADDRESS
+  if (addr) {
+    try {
+      const { data } = await axios.get(process.env.EXTERNAL_API_ADDRESS)
+      return data
+    } catch (err) {
+      console.log(`error occured when calling - ${addr}. err = `, err)
+    }
+  } else {
+    return null
+  }
+}
+const getProductReview = async (call, callback) => {
   if (process.env.DEBUG_CALLS) {
     console.log(call.metadata)
   }
   const id = call.request.id
   if (id) {
-    const product = products.find((x) => x.id == id)
-
+    let product = products.find((x) => x.id == id)
+    const reviews = await getNumberOfReviews()
+    if (reviews) {
+      product = { ...product, numReviews: { value: reviews } }
+    }
     if (product) {
       callback(null, { ...product, hostname })
     } else {
