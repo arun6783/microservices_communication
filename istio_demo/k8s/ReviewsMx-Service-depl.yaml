@@ -17,11 +17,11 @@ spec:
       containers:
         - name: myshop-reviews
           image: arun6783/myshop-reviews:grpc
-          # env:
-          #   - name: HostName
-          #     valueFrom:
-          #       fieldRef:
-          #         fieldPath: metadata.name
+          env:
+            - name: HostName
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
           ports:
             - containerPort: 4600
           volumeMounts:
@@ -33,39 +33,75 @@ spec:
             name: myshop.proto
 
 ---
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: myshop-reviews-depl-v2
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: myshop-reviews
-#   template:
-#     metadata:
-#       labels:
-#         app: myshop-reviews
-#         version: v2
-#     spec:
-#       containers:
-#         - name: myshop-reviews
-#           image: arun6783/myshop-reviews:grpcv2
-#           env:
-#             - name: HostName
-#               valueFrom:
-#                 fieldRef:
-#                   fieldPath: metadata.name
-#           ports:
-#             - containerPort: 4600
-#           volumeMounts:
-#             - name: config-volume
-#               mountPath: /protos/
-#       volumes:
-#         - name: config-volume
-#           configMap:
-#             name: myshop.proto
-# ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myshop-reviews-depl-v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myshop-reviews
+  template:
+    metadata:
+      labels:
+        app: myshop-reviews
+        version: v2
+    spec:
+      containers:
+        - name: myshop-reviews
+          image: arun6783/myshop-reviews:grpcv2
+          env:
+            - name: HostName
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          ports:
+            - containerPort: 4600
+          volumeMounts:
+            - name: config-volume
+              mountPath: /protos/
+      volumes:
+        - name: config-volume
+          configMap:
+            name: myshop.proto
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myshop-reviews-depl-v3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myshop-reviews
+  template:
+    metadata:
+      labels:
+        app: myshop-reviews
+        version: v3
+    spec:
+      containers:
+        - name: myshop-reviews
+          image: arun6783/myshop-reviews:grpcv3
+          env:
+            - name: HostName
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: EXTERNAL_API_ADDRESS
+              value: 'http://13.40.116.244/api/random'                  
+          ports:
+            - containerPort: 4600
+          volumeMounts:
+            - name: config-volume
+              mountPath: /protos/
+      volumes:
+        - name: config-volume
+          configMap:
+            name: myshop.proto
+---
 kind: Service
 apiVersion: v1
 metadata:
