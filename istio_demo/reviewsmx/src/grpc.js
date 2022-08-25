@@ -27,6 +27,7 @@ const getNumberOfReviews = async () => {
       return data
     } catch (err) {
       console.log(`error occured when calling - ${addr}. err = `, err)
+      throw err
     }
   } else {
     return null
