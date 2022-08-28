@@ -29,3 +29,11 @@ h2 {
   font-size: 1.4rem;
   padding: 0.5rem 0;
 }
+
+.fa-user{
+  margin-right: 8px;
+}
+
+.navbar  a{
+  color:white
+}

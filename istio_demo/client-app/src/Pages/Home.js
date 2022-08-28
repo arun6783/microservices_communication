@@ -38,7 +38,7 @@ const Home = () => {
       ) : (
         products && (
           <>
-            <h1>Latest Products</h1>
+           
             {
               <Row>
                 {products.map((product) => (
