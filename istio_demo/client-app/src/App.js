@@ -8,6 +8,7 @@ import NotFound from './Pages/NotFound'
 import Header from './components/Header'
 import Profile from './components/Profile'
 import Loader from './components/Loader'
+import ProtectedRoute from './auth/protected-route'
 
 function App() {
   const { isLoading } = useAuth0()

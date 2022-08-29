@@ -3,20 +3,13 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import './bootstrap.min.css'
 import App from './App'
-import { Auth0Provider } from '@auth0/auth0-react'
-
-const domain = process.env.REACT_APP_AUTH0_DOMAIN||'dev-gl3nsqil.us.auth0.com'
-const clientid = process.env.REACT_APP_AUTH0_CLIENT_ID ||'cN2yCXHp26frXF3kYaDnq97kPcnwhuhQ'
-
+import Auth0ProviderWithHistory from './auth/auth0-provider-with-history'
 const root = ReactDOM.createRoot(document.getElementById('root'))
+
 root.render(
   <React.StrictMode>
-    <Auth0Provider
-      domain={domain}
-      clientId={clientid}
-      redirectUri={window.location.origin}
-    >
+   <Auth0ProviderWithHistory>
       <App />
-    </Auth0Provider>
+    </Auth0ProviderWithHistory>
   </React.StrictMode>
 )

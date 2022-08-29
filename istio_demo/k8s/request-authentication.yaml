@@ -1,0 +1,13 @@
+
+
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: myshop-orchestrator-jwt
+spec:
+  selector:
+    matchLabels:
+      app: myshop-orchestrator
+  jwtRules:
+  - issuer: "https://dev-gl3nsqil.us.auth0.com/"
+    jwksUri: "https://dev-gl3nsqil.us.auth0.com/.well-known/jwks.json"

@@ -15,10 +15,16 @@ spec:
     spec:
       containers:
         - name: myshop-client
-          image: arun6783/myshop-client:grpc
+          image: arun6783/myshop-client:jwtdemo
           env:
             - name: OrchestratorUrl
               value: 'http://myshop-orchestrator-srv:6000'
+            - name: REACT_APP_AUTH0_DOMAIN
+              value: 'dev-gl3nsqil.us.auth0.com'
+            - name: REACT_APP_AUTH0_CLIENT_ID
+              value: 'cN2yCXHp26frXF3kYaDnq97kPcnwhuhQ'              
+            - name: REACT_APP_AUTH0_AUDIENCE
+              value: 'http://myshop-orchestrator-srv'
 ---
 kind: Service
 apiVersion: v1

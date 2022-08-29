@@ -12,9 +12,15 @@ app.use(express.static(buildFolder))
 
 app.get('/api/products', async (req, res) => {
   try {
+    const { authorization } = req.headers
+    console.log('client-app-calling-orchestrator-auth=', authorization)
     const orchestratorUrl =
       process.env.OrchestratorUrl || 'http://localhost:6000'
-    const { data } = await axios.get(`${orchestratorUrl}/api/products`)
+    const { data } = await axios.get(`${orchestratorUrl}/api/products`, {
+      headers: {
+        Authorization: authorization,
+      },
+    })
 
     return res.send(data)
   } catch (err) {
@@ -27,10 +33,17 @@ app.get('/api/products', async (req, res) => {
 
 app.get('/api/productdetails/:id', async (req, res) => {
   try {
+    const { authorization } = req.headers
+    console.log('client-app-calling-orchestrator-auth=', authorization)
     const orchestratorUrl =
       process.env.OrchestratorUrl || 'http://localhost:6000'
     const { data } = await axios.get(
-      `${orchestratorUrl}/api/productdetails/${req.params.id}`
+      `${orchestratorUrl}/api/productdetails/${req.params.id}`,
+      {
+        headers: {
+          Authorization: authorization,
+        },
+      }
     )
 
     return res.send(data)

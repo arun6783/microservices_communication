@@ -4,17 +4,34 @@ import Product from '../components/Product'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import axios from 'axios'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const Home = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(undefined)
   const [products, setProducts] = useState(undefined)
+  const { getAccessTokenSilently } = useAuth0()
 
+  const getAccessToken = async () => {
+    let accessToken = ''
+    try {
+      accessToken = await getAccessTokenSilently()
+    } catch (err) {
+      console.log('error occured when getting token', err)
+    }
+    return accessToken;
+  }
   const getProducts = async () => {
     setLoading(true)
     setError(undefined)
     try {
-      const { data } = await axios.get(`/api/products`)
+      const accessToken = await getAccessToken()
+      
+      const { data } = await axios.get(`/api/products`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
       if (data) {
         setProducts(data)
       } else {
@@ -38,7 +55,6 @@ const Home = () => {
       ) : (
         products && (
           <>
-           
             {
               <Row>
                 {products.map((product) => (
