@@ -1,8 +1,11 @@
 const express = require('express')
-const axios = require('axios')
+
 const app = express()
 const cors = require('cors')
+const {expressjwt } = require("express-jwt");
+const jwksRsa = require("jwks-rsa");
 const { CreateGrpcClient, ServiceConsts } = require('./grpc_client')
+
 const {
   getRatingsAndReviews,
   getStock,
@@ -16,8 +19,26 @@ app.use(
   })
 )
 
-app.get('/api/products', async (req, res) => {
+const checkJwt = expressjwt ({
+  secret: jwksRsa.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: 'https://dev-gl3nsqil.us.auth0.com/.well-known/jwks.json',
+  }),
+  audience: 'http://myshop-orchestrator-srv',
+  issuer: 'https://dev-gl3nsqil.us.auth0.com/',
+  algorithms: ['RS256'],
+})
+
+
+
+
+
+app.get('/api/products',  async (req, res) => {
   try {
+    const { authorization } = req.headers
+    console.log('orchestrator-auth=', authorization)
     const client = CreateGrpcClient(ServiceConsts.ProductsDetailsService)
 
     client.getProducts({}, function (err, response) {
